@@ -1,13 +1,15 @@
 import { Navigate } from "react-router-dom";
 
-// Componente de proteção de rota
-export function ProtectedRoute({ children }) {
+export function ProtectedRoute({ children, requireAuth = true }) {
   const token = localStorage.getItem("token");
 
-  if (!token) {
-    // Se não houver token, redireciona para a tela de login
+  if (requireAuth && !token) {
     return <Navigate to="/auth/login" replace />;
   }
 
-  return children; // Se o usuário estiver logado, permite o acesso às rotas
+  if (!requireAuth && token) {
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
 }

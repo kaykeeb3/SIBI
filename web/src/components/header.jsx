@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { NotebookText, Calendar, Laptop, Library, LogOut, ChartLine } from "lucide-react";
-import { logoutUser, getUserProfile } from "../services/authService";
+import { logoutUser, getUserProfile } from "../services/auth-service";
 
 export function Header() {
   const location = useLocation();
@@ -9,12 +9,11 @@ export function Header() {
   const token = localStorage.getItem("token");
   const [userName, setUserName] = useState("");
 
-  // Carregar o nome do usuário assim que o token for encontrado
   useEffect(() => {
     if (token) {
       getUserProfile()
         .then((data) => {
-          const firstName = data.user.name.split(" ")[0]; // Pegando apenas o primeiro nome
+          const firstName = data.user.name.split(" ")[0];
           setUserName(firstName);
         })
         .catch((error) => {
@@ -23,7 +22,6 @@ export function Header() {
     }
   }, [token]);
 
-  // Apenas mostrar o header se o token estiver presente
   if (!token) {
     return null;
   }
@@ -74,10 +72,16 @@ export function Header() {
           </div>
 
           <div className="flex flex-col items-end text-right">
-            <span className="text-sm text-zinc-800 font-medium">Olá, {userName || "Carregando..."}</span>
+            <span
+              className={`text-sm font-medium text-zinc-800 transition-opacity duration-500 ${userName ? "opacity-100" : "opacity-0"}`}
+            >
+              {userName ? `Olá, ${userName}` : (
+                <span className="inline-block w-20 h-4 bg-zinc-300 rounded animate-pulse"></span>
+              )}
+            </span>
             <button
               onClick={handleLogout}
-              className="flex items-center text-xs text-red-600 hover:text-red-700 font-medium"
+              className="flex items-center text-xs text-red-600 font-medium transition-transform duration-200 hover:text-red-700 hover:scale-105 active:scale-95"
             >
               <LogOut size={12} className="mr-1" />
               Sair

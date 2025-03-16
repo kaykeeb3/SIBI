@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import { Header } from "../../components/header";
-import { ProtectedRoute } from "../../components/protected-route";
 
 export function AppLayout() {
   return (
@@ -9,9 +8,7 @@ export function AppLayout() {
 
       <main className="flex-1 w-full">
         <div className="w-full h-full">
-          <ProtectedRoute>
-            <Outlet />
-          </ProtectedRoute>
+          <Outlet />
         </div>
       </main>
     </div>

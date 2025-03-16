@@ -1,6 +1,5 @@
 import { API_URL } from "../lib/api";
 
-// Função para fazer login e armazenar o nome e token
 export async function loginUser(email, password) {
   try {
     const response = await fetch(`${API_URL}/auth/login`, {
@@ -17,7 +16,6 @@ export async function loginUser(email, password) {
 
     const data = await response.json();
 
-    // Armazenar apenas o nome e token no localStorage
     localStorage.setItem("token", data.token);
     localStorage.setItem("name", data.user.name);
 
@@ -28,7 +26,6 @@ export async function loginUser(email, password) {
   }
 }
 
-// Função para obter o perfil do usuário
 export async function getUserProfile() {
   const token = localStorage.getItem("token");
 
@@ -57,7 +54,6 @@ export async function getUserProfile() {
   }
 }
 
-// Função de logout que remove o token e o nome do localStorage
 export function logoutUser() {
   localStorage.removeItem("token");
   localStorage.removeItem("name");
