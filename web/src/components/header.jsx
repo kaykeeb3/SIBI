@@ -80,7 +80,7 @@ export function Header() {
               </span>
               <button
                 onClick={logoutUser}
-                className="flex items-center text-xs text-red-600 font-medium transition-transform duration-200 hover:text-red-700 hover:scale-105 active:scale-95"
+                className="flex items-center text-xs text-red-600 font-medium transition-transform duration-200 hover:text-red-700"
               >
                 <LogOut size={10} className="mr-1" />
                 sair
