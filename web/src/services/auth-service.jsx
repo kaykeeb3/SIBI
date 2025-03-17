@@ -30,6 +30,7 @@ export async function getUserProfile() {
   const token = localStorage.getItem("token");
 
   if (!token) {
+    redirectToLogin();
     throw new Error("Usuário não autenticado.");
   }
 
@@ -42,14 +43,19 @@ export async function getUserProfile() {
       },
     });
 
+    if (response.status === 401) {
+      redirectToLogin();
+      throw new Error("Token inválido ou expirado.");
+    }
+
     if (!response.ok) {
       throw new Error("Erro ao buscar perfil.");
     }
 
-    const data = await response.json();
-    return data;
+    return await response.json();
   } catch (error) {
     console.error("Erro ao obter perfil:", error.message);
+    redirectToLogin();
     throw error;
   }
 }
@@ -57,4 +63,9 @@ export async function getUserProfile() {
 export function logoutUser() {
   localStorage.removeItem("token");
   localStorage.removeItem("name");
+  window.location.href = "/auth/login";
+}
+
+function redirectToLogin() {
+  logoutUser();
 }

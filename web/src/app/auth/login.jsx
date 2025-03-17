@@ -84,14 +84,14 @@ export function Login() {
             )}
           </button>
 
-          <div className="mt-4 text-center">
+          {/*<div className="mt-4 text-center">
             <p className="text-sm text-gray-700">
               Não tem uma conta?{" "}
               <Link to="/auth/register" className="text-blue-500 hover:text-blue-700 transition-all duration-300">
                 Cadastre-se
               </Link>
             </p>
-          </div>
+          </div>*/}
         </form>
       </div>
     </div>

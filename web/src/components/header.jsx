@@ -1,28 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { NotebookText, Calendar, Laptop, Library, LogOut, ChartLine } from "lucide-react";
 import { logoutUser, getUserProfile } from "../services/auth-service";
 
 export function Header() {
   const location = useLocation();
-  const navigate = useNavigate();
-  const token = localStorage.getItem("token");
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
-    if (token) {
-      getUserProfile()
-        .then((data) => {
-          const firstName = data.user.name.split(" ")[0];
-          setUserName(firstName);
-        })
-        .catch((error) => {
-          console.error("Erro ao obter perfil:", error.message);
-        });
-    }
-  }, [token]);
+    getUserProfile()
+      .then((data) => {
+        const firstName = data.user.name.split(" ")[0];
+        setUserName(firstName);
+      })
+      .catch(() => {
+        logoutUser();
+      });
+  }, []);
 
-  if (!token) {
+  if (!localStorage.getItem("token")) {
     return null;
   }
 
@@ -33,11 +29,6 @@ export function Header() {
     { to: "/equipamentos", label: "Equipamentos", icon: <Laptop size={18} /> },
     { to: "/agendamentos", label: "Agendamentos", icon: <Calendar size={18} /> },
   ];
-
-  const handleLogout = () => {
-    logoutUser();
-    navigate("/auth/login");
-  };
 
   return (
     <header className="w-full py-3 border-b border-zinc-300 bg-white shadow-sm">
@@ -72,19 +63,13 @@ export function Header() {
           </div>
 
           <div className="flex flex-col items-end text-right">
-            <span
-              className={`text-sm font-medium text-zinc-800 transition-opacity duration-500 ${userName ? "opacity-100" : "opacity-0"}`}
-            >
-              {userName ? `Olá, ${userName}` : (
-                <span className="inline-block w-20 h-4 bg-zinc-300 rounded animate-pulse"></span>
-              )}
-            </span>
+            <span className="text-sm font-medium text-zinc-800">{userName ? `Olá, ${userName}` : "Carregando..."}</span>
             <button
-              onClick={handleLogout}
+              onClick={logoutUser}
               className="flex items-center text-xs text-red-600 font-medium transition-transform duration-200 hover:text-red-700 hover:scale-105 active:scale-95"
             >
               <LogOut size={12} className="mr-1" />
-              Sair
+              sair
             </button>
           </div>
         </div>
