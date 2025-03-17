@@ -4,7 +4,13 @@ import { handleError } from "../utils/errorHandler.js";
 export const authController = {
   async register(req, res) {
     try {
-      const user = await authService.registerUser(req.body);
+      const { name, email, password, profilePicture } = req.body;
+      const user = await authService.registerUser({
+        name,
+        email,
+        password,
+        profilePicture,
+      });
       res.status(201).json({ message: "User registered successfully", user });
     } catch (error) {
       handleError(res, error, 400);
