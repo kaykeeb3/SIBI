@@ -5,13 +5,16 @@ import { logoutUser, getUserProfile } from "../services/auth-service";
 
 export function Header() {
   const location = useLocation();
-  const [userName, setUserName] = useState("");
+  const [userData, setUserData] = useState({ name: "", profilePicture: "" });
 
   useEffect(() => {
     getUserProfile()
       .then((data) => {
         const firstName = data.user.name.split(" ")[0];
-        setUserName(firstName);
+        setUserData({
+          name: firstName,
+          profilePicture: data.user.profilePicture || "", // Salvar URL da imagem
+        });
       })
       .catch(() => {
         logoutUser();
@@ -24,16 +27,16 @@ export function Header() {
 
   const navItems = [
     { to: "/", label: "Dashboard", icon: <ChartLine size={18} /> },
-    { to: "/livros", label: "Livros", icon: <NotebookText size={18} /> },
-    { to: "/emprestimos", label: "Empréstimos", icon: <Library size={18} /> },
-    { to: "/equipamentos", label: "Equipamentos", icon: <Laptop size={18} /> },
-    { to: "/agendamentos", label: "Agendamentos", icon: <Calendar size={18} /> },
+    { to: "/books", label: "Livros", icon: <NotebookText size={18} /> },
+    { to: "/loans", label: "Empréstimos", icon: <Library size={18} /> },
+    { to: "/equipments", label: "Equipamentos", icon: <Laptop size={18} /> },
+    { to: "/schedules", label: "Agendamentos", icon: <Calendar size={18} /> },
   ];
 
   return (
     <header className="w-full py-3 border-b border-zinc-300 bg-white shadow-sm">
       <div className="mx-auto flex items-center justify-between px-6">
-        <nav className="flex space-x-1">
+        <nav className="flex space-x-2">
           {navItems.map(({ to, label, icon }) => {
             const isActive = location.pathname === to;
             return (
@@ -62,15 +65,27 @@ export function Header() {
             <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-zinc-500">⌘ K</span>
           </div>
 
-          <div className="flex flex-col items-end text-right">
-            <span className="text-sm font-medium text-zinc-800">{userName ? `Olá, ${userName}` : "Carregando..."}</span>
-            <button
-              onClick={logoutUser}
-              className="flex items-center text-xs text-red-600 font-medium transition-transform duration-200 hover:text-red-700 hover:scale-105 active:scale-95"
-            >
-              <LogOut size={12} className="mr-1" />
-              sair
-            </button>
+          <div className="flex items-center space-x-2">
+            {userData.profilePicture && (
+              <img
+                src={userData.profilePicture}
+                alt="Profile"
+                className="w-8 h-8 rounded-full object-cover"
+              />
+            )}
+
+            <div className="flex flex-col items-end text-left">
+              <span className="text-xs font-medium text-zinc-800">
+                {userData.name ? `Olá, ${userData.name}` : "Carregando..."}
+              </span>
+              <button
+                onClick={logoutUser}
+                className="flex items-center text-xs text-red-600 font-medium transition-transform duration-200 hover:text-red-700 hover:scale-105 active:scale-95"
+              >
+                <LogOut size={10} className="mr-1" />
+                sair
+              </button>
+            </div>
           </div>
         </div>
       </div>

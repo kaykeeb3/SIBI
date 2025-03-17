@@ -52,13 +52,14 @@ export async function getUserProfile() {
       throw new Error("Erro ao buscar perfil.");
     }
 
-    return await response.json();
+    return await response.json(); // Garantir que o perfil com a URL da imagem seja retornado
   } catch (error) {
     console.error("Erro ao obter perfil:", error.message);
     redirectToLogin();
     throw error;
   }
 }
+
 
 export function logoutUser() {
   localStorage.removeItem("token");
