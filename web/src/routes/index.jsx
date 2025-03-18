@@ -4,6 +4,8 @@ import { Login } from "../app/auth/login";
 import { Signup } from "../app/auth/signup";
 import { Dashboard } from "../app/dashboard/page";
 import { ProtectedRoute } from "../components/protected-route";
+import { Books } from "../app/books/page";
+import { ForgotPassword } from "../app/auth/forgot-password";
 
 export function Routes() {
   const routes = createBrowserRouter([
@@ -24,6 +26,14 @@ export function Routes() {
       ),
     },
     {
+      path: "/auth/forgot-password",
+      element: (
+        <ProtectedRoute requireAuth={false}>
+          <ForgotPassword />
+        </ProtectedRoute>
+      ),
+    },
+    {
       path: "/",
       element: (
         <ProtectedRoute>
@@ -34,6 +44,10 @@ export function Routes() {
         {
           index: true,
           element: <Dashboard />,
+        },
+        {
+          path: "/books",
+          element: <Books />,
         },
       ],
     },

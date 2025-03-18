@@ -13,7 +13,7 @@ export function Header() {
         const firstName = data.user.name.split(" ")[0];
         setUserData({
           name: firstName,
-          profilePicture: data.user.profilePicture || "", // Salvar URL da imagem
+          profilePicture: data.user.profilePicture || "",
         });
       })
       .catch(() => {
@@ -45,8 +45,8 @@ export function Header() {
                 to={to}
                 className={`flex items-center text-sm font-medium px-4 py-2 rounded-md transition-colors duration-200
                 ${isActive
-                    ? "bg-blue-50 text-blue-700 border-b border-blue-600"
-                    : "text-zinc-700 hover:bg-zinc-100 hover:text-blue-600"}`}
+                    ? "bg-purple-50 text-purple-700 border-b border-purple-600"
+                    : "text-zinc-700 hover:bg-zinc-100 hover:text-purple-600"}`}
               >
                 <span className="mr-2">{icon}</span>
                 <span className="hidden sm:inline text-xs">{label}</span>
@@ -60,7 +60,7 @@ export function Header() {
             <input
               type="text"
               placeholder="Pesquisar..."
-              className="w-full px-3 py-1 text-sm border border-zinc-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+              className="w-full px-3 py-1 text-sm border border-zinc-300 rounded-md focus:outline-none focus:ring-1 focus:ring-purple-600"
             />
             <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-zinc-500">⌘ K</span>
           </div>
