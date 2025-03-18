@@ -45,7 +45,7 @@ export function Header() {
                 to={to}
                 className={`flex items-center text-sm font-medium px-4 py-2 rounded-md transition-colors duration-200
                 ${isActive
-                    ? "bg-purple-50 text-purple-700 border-b border-purple-600"
+                    ? "bg-purple-50 text-purple-600 border-b border-purple-600"
                     : "text-zinc-700 hover:bg-zinc-100 hover:text-purple-600"}`}
               >
                 <span className="mr-2">{icon}</span>
