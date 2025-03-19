@@ -38,7 +38,7 @@ export function Login() {
         <form onSubmit={handleSubmit} className="w-full">
           <div className="mb-4">
             <label htmlFor="email" className="block text-gray-600 text-sm font-normal mb-2">
-              Email
+              Email <span className="text-red-500">*</span>
             </label>
             <input
               type="email"
@@ -53,7 +53,7 @@ export function Login() {
 
           <div className="mb-6">
             <label htmlFor="password" className="block text-gray-600 text-sm font-normal mb-2">
-              Senha
+              Senha <span className="text-red-500">*</span>
             </label>
             <input
               type="password"
