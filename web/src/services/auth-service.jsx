@@ -26,6 +26,32 @@ export async function loginUser(email, password) {
   }
 }
 
+export async function registerUser(name, email, password, profilePicture) {
+  try {
+    const response = await fetch(`${API_URL}/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, email, password, profilePicture }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Erro ao cadastrar. Verifique os dados informados.");
+    }
+
+    const data = await response.json();
+
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("name", data.user.name);
+
+    return data;
+  } catch (error) {
+    console.error("Erro no cadastro:", error.message);
+    throw error;
+  }
+}
+
 export async function getUserProfile() {
   const token = localStorage.getItem("token");
 
@@ -59,7 +85,6 @@ export async function getUserProfile() {
     throw error;
   }
 }
-
 
 export function logoutUser() {
   localStorage.removeItem("token");
