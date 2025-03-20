@@ -11,10 +11,10 @@ export const validateBookInput = (req, res, next) => {
       .json({ error: "Book number must be a positive integer" });
   }
 
-  if (!/^[a-zA-Z0-9\s.]+$/.test(author)) {
+  if (!/^[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s.]+$/.test(author)) {
     return res.status(400).json({
       error:
-        "Author's name must contain only letters, numbers, spaces, and periods.",
+        "Author's name must contain only letters (including accents), numbers, spaces, and periods.",
     });
   }
 
