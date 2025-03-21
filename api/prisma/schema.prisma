@@ -28,6 +28,7 @@ model Book {
 
 model Loan {
   id           String   @id @default(uuid())
+  name         String
   borrowerName String
   course       String
   startDate    DateTime
