@@ -84,9 +84,9 @@ export function Login() {
             </div>
           )}
 
-          <div className="mt-4 text-center text-sm">
+          <div className="mt-4 text-center text-xs">
             <span className="text-gray-600">Não tem conta?</span>
-            <Link to="/auth/register" className="text-purple-500 text-sm underline ml-1">
+            <Link to="/auth/register" className="text-purple-500 text-xs underline ml-1">
               Cadastre-se
             </Link>
           </div>
