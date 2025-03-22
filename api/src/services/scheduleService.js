@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import moment from "moment";
 import { equipmentService } from "../services/equipmentService.js";
 
+moment.locale("pt-br");
 const prisma = new PrismaClient();
 
 export const scheduleService = {
@@ -40,13 +41,34 @@ export const scheduleService = {
       );
     }
 
+    // Determinar o dia da semana a partir da data de início, se não for fornecido
+    const startDateMoment = moment(data.startDate);
+    let dayOfWeek = data.dayOfWeek;
+
+    if (!dayOfWeek) {
+      // Nomes dos dias em português
+      const weekDaysPortuguese = [
+        "domingo",
+        "segunda-feira",
+        "terça-feira",
+        "quarta-feira",
+        "quinta-feira",
+        "sexta-feira",
+        "sábado",
+      ];
+
+      // Obtém o dia da semana (0-6, sendo 0 = domingo)
+      const dayNumber = startDateMoment.day();
+      dayOfWeek = weekDaysPortuguese[dayNumber];
+    }
+
     const schedule = await prisma.schedule.create({
       data: {
         borrowerName: data.borrowerName,
         quantity: data.quantity,
-        startDate: moment(data.startDate).toDate(),
+        startDate: startDateMoment.toDate(),
         returnDate: moment(data.returnDate).toDate(),
-        dayOfWeek: data.dayOfWeek,
+        dayOfWeek: dayOfWeek,
         equipmentId: data.equipmentId,
         type: data.type || null,
         returned: false,
@@ -68,7 +90,7 @@ export const scheduleService = {
         quantity: data.quantity,
         startDate: moment(data.startDate).toDate(),
         returnDate: moment(data.returnDate).toDate(),
-        dayOfWeek: data.dayOfWeek,
+        dayOfWeek: moment(data.startDate).format("dddd"),
         equipmentId: data.equipmentId,
         type: data.type || null,
       },

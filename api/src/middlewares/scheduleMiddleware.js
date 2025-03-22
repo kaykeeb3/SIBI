@@ -44,8 +44,9 @@ export const validateScheduleInput = (req, res, next) => {
       .json({ error: "Quantity must be a positive integer." });
   }
 
-  // Validação para dayOfWeek (apenas dias válidos)
+  // Validação para dayOfWeek (dias válidos em português e inglês)
   const validDays = [
+    // English days
     "Sunday",
     "Monday",
     "Tuesday",
@@ -53,9 +54,21 @@ export const validateScheduleInput = (req, res, next) => {
     "Thursday",
     "Friday",
     "Saturday",
+    // Portuguese days
+    "domingo",
+    "segunda-feira",
+    "terça-feira",
+    "quarta-feira",
+    "quinta-feira",
+    "sexta-feira",
+    "sábado",
   ];
+
   if (!validDays.includes(dayOfWeek)) {
-    return res.status(400).json({ error: "Invalid day of the week." });
+    return res.status(400).json({
+      error:
+        "Dia da semana inválido. Use formato como 'segunda-feira', 'terça-feira', etc.",
+    });
   }
 
   // Validação para type (opcional, mas se informado deve ser um string válida)
