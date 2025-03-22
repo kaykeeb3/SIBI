@@ -6,7 +6,6 @@ import { Dashboard } from "../app/dashboard/page";
 import { ProtectedRoute } from "../components/protected-route";
 import { Books } from "../app/books/page";
 import { Loans } from "../app/loans/page";
-import { ForgotPassword } from "../app/auth/forgot-password";
 import { Equipments } from "../app/equipments/page";
 import { Schedules } from "../app/schedules/page";
 
@@ -25,14 +24,6 @@ export function Routes() {
       element: (
         <ProtectedRoute requireAuth={false}>
           <Signup />
-        </ProtectedRoute>
-      ),
-    },
-    {
-      path: "/auth/forgot-password",
-      element: (
-        <ProtectedRoute requireAuth={false}>
-          <ForgotPassword />
         </ProtectedRoute>
       ),
     },
