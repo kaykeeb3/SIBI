@@ -5,7 +5,10 @@ import { Signup } from "../app/auth/signup";
 import { Dashboard } from "../app/dashboard/page";
 import { ProtectedRoute } from "../components/protected-route";
 import { Books } from "../app/books/page";
+import { Loans } from "../app/loans/page";
 import { ForgotPassword } from "../app/auth/forgot-password";
+import { Equipments } from "../app/equipments/page";
+import { Schedules } from "../app/schedules/page";
 
 export function Routes() {
   const routes = createBrowserRouter([
@@ -48,6 +51,15 @@ export function Routes() {
         {
           path: "/books",
           element: <Books />,
+        }, {
+          path: "/loans",
+          element: <Loans />,
+        }, {
+          path: "/equipments",
+          element: <Equipments />,
+        }, {
+          path: "/schedules",
+          element: <Schedules />,
         },
       ],
     },
